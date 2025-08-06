@@ -105,6 +105,7 @@ resource "null_resource" "argocd_apps" {
   depends_on = [time_sleep.wait_for_argocd]
   
   provisioner "local-exec" {
+    interpreter = ["bash", "-c"]
     command = <<-EOT
       echo "Deploying ArgoCD projects and applications..."
       kubectl apply -n ${var.argocd_namespace} -f ${path.module}/../argocd/projects/
